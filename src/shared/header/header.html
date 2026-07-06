@@ -1,0 +1,16 @@
+<header class="header">
+  <div class="welcome">
+    <h1>Portal Foundation Dashboard</h1>
+  </div>
+
+  <app-global-search />
+
+  <div class="actions">
+    <app-notification-center />
+
+    <div class="profile">
+      <div class="avatar" aria-hidden="true">{{ initials() }}</div>
+      <span class="name">{{ customer().name }}</span>
+    </div>
+  </div>
+</header>

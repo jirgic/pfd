@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="header">
+    <h2 class="title" id="notifications-heading">Notifications</h2>
+    @if (notificationsService.unreadCount() > 0) {
+      <button class="link" type="button" (click)="onMarkAllAsRead()">Mark all as read</button>
+    }
+  </div>
+
+  <ul class="notifications list" aria-labelledby="notifications-heading">
+    @for (notification of notificationsService.notifications(); track notification.id) {
+      <li class="item">
+        <button
+          type="button"
+          class="notification-button"
+          [disabled]="notification.read"
+          [attr.aria-label]="notification.read ? null : 'Mark as read: ' + notification.title"
+          (click)="onMarkAsRead(notification.id)"
+        >
+          <span class="dot" [class.read]="notification.read" aria-hidden="true"></span>
+          <div class="body">
+            <p class="title">
+              @if (!notification.read) {
+                <span class="sr-only">Unread: </span>
+              }
+              {{ notification.title }}
+            </p>
+            <p class="meta">{{ notification.meta }}</p>
+          </div>
+          <span class="time">{{ notification.time }}</span>
+        </button>
+      </li>
+    }
+  </ul>
+
+  <a class="footer-link" href="#">View all notifications</a>
+</div>

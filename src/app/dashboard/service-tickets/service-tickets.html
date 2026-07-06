@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="header">
+    <h2 class="title" id="service-tickets-heading">Open Service Tickets</h2>
+    <a class="link" href="#">View all tickets</a>
+  </div>
+
+  <table class="dash-table" aria-labelledby="service-tickets-heading">
+    <caption class="sr-only">Open service tickets, their status and priority</caption>
+    <thead>
+      <tr>
+        <th scope="col">Ticket ID</th>
+        <th scope="col">Issue</th>
+        <th scope="col">Status</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Opened On</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (ticket of tickets(); track ticket.id) {
+        <tr>
+          <th scope="row"><a href="#">{{ ticket.id }}</a></th>
+          <td>{{ ticket.subject }}</td>
+          <td>
+            <span class="badge" [class]="badgeClass(ticket.status)">{{ ticket.status }}</span>
+          </td>
+          <td><span class="priority" [class]="ticket.priority">{{ ticket.priority | titlecase }}</span></td>
+          <td>
+            <time [attr.datetime]="ticket.openedOn">{{ ticket.openedOn | date: 'MMMM d, y' }}</time>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <a class="footer-link" href="#">View all tickets</a>
+</div>

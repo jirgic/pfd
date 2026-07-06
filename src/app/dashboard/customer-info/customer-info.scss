@@ -1,0 +1,61 @@
+.customer {
+  display: flex;
+  gap: 1.25rem;
+
+  & .avatar {
+    flex: none;
+    width: 64px;
+    height: 64px;
+    font-size: 1.1rem;
+  }
+
+  & .details {
+    flex: 1;
+    margin: 0;
+  }
+
+  & .row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 0.5rem;
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+
+    dt {
+      color: var(--color-text-muted);
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+}
+
+.org {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: var(--border-width-thin) solid var(--color-border);
+
+  .label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .link {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: var(--color-text);
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    .name {
+      font-weight: 600;
+    }
+  }
+}

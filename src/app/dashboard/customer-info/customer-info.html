@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="header">
+    <h2 class="title" id="customer-info-heading">Customer Information</h2>
+  </div>
+
+  <div class="customer">
+    <div class="avatar" aria-hidden="true">{{ initials() }}</div>
+    <dl class="details">
+      <div class="row">
+        <dt>Name</dt>
+        <dd>{{ customer().name }}</dd>
+      </div>
+      <div class="row">
+        <dt>Email</dt>
+        <dd><a [href]="'mailto:' + customer().email">{{ customer().email }}</a></dd>
+      </div>
+      <div class="row">
+        <dt>Phone</dt>
+        <dd><a [href]="'tel:' + customer().phone">{{ customer().phone }}</a></dd>
+      </div>
+      <div class="row">
+        <dt>Customer ID</dt>
+        <dd>{{ customer().id }}</dd>
+      </div>
+      <div class="row">
+        <dt>Member Since</dt>
+        <dd><time [attr.datetime]="customer().memberSince">{{ customer().memberSince | date: 'MMMM d, y' }}</time></dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="org">
+    <span class="label" id="org-label">Organization</span>
+    <a class="link" href="#" aria-labelledby="org-label org-name">
+      <span class="name" id="org-name">{{ customer().organization.name }}</span>
+    </a>
+  </div>
+</div>

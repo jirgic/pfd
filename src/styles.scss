@@ -1,0 +1,196 @@
+@use './variables' as tokens;
+
+:root {
+  --font-family-primary:
+    '#{tokens.$primitives-font-family-primary}', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif;
+
+  --color-bg: #{tokens.$semantics-color-background-subtle};
+  --color-surface: #{tokens.$semantics-color-background-surface};
+  --color-border: #{tokens.$semantics-color-border-subtle};
+  --color-text: #{tokens.$semantics-color-text-primary};
+  --color-text-muted: #{tokens.$semantics-color-text-secondary};
+  --color-primary: #{tokens.$semantics-color-background-primary-default};
+
+  --color-success-bg: #{tokens.$semantics-color-background-feedback-success};
+  --color-success-text: #{tokens.$semantics-color-text-feedback-success};
+  --color-info-bg: #{tokens.$semantics-color-background-feedback-info};
+  --color-info-text: #{tokens.$semantics-color-text-feedback-info};
+  --color-warning-bg: #{tokens.$semantics-color-background-feedback-warning};
+  --color-warning-text: #{tokens.$semantics-color-text-feedback-warning};
+  --color-danger-text: #{tokens.$semantics-color-text-feedback-error};
+  --color-neutral-bg: #{tokens.$primitives-color-gray-100};
+  --color-neutral-text: #{tokens.$primitives-color-gray-600};
+
+  --radius: #{tokens.$semantics-radius-surface}px;
+  --radius-control: #{tokens.$semantics-radius-control}px;
+  --radius-pill: #{tokens.$semantics-radius-pill}px;
+
+  --border-width-thin: #{tokens.$primitives-border-width-thin}px;
+
+  --focus-ring-color: #{tokens.$semantics-focus-ring-color};
+  --focus-ring-width: #{tokens.$semantics-focus-ring-width}px;
+  --focus-ring-offset: #{tokens.$semantics-focus-ring-offset}px;
+  --focus-ring-style: #{tokens.$semantics-focus-ring-style};
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-primary);
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color-surface);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--color-primary);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .footer-link {
+    display: block;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: var(--border-width-thin) solid var(--color-border);
+    text-align: center;
+    font-size: 0.9rem;
+  }
+}
+
+.dash-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  thead th {
+    text-align: left;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    padding: 0 0.5rem 0.5rem 0.5rem;
+  }
+
+  td,
+  tbody th {
+    padding: 0.6rem 0.5rem;
+    border-top: var(--border-width-thin) solid var(--color-border);
+    text-align: left;
+    font-weight: 400;
+  }
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+
+  &.success {
+    background: var(--color-success-bg);
+    color: var(--color-success-text);
+  }
+
+  &.info {
+    background: var(--color-info-bg);
+    color: var(--color-info-text);
+  }
+
+  &.warning {
+    background: var(--color-warning-bg);
+    color: var(--color-warning-text);
+  }
+
+  &.neutral {
+    background: var(--color-neutral-bg);
+    color: var(--color-neutral-text);
+  }
+}
+
+.avatar {
+  border-radius: 50%;
+  background: var(--color-info-bg);
+  color: var(--color-info-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.priority {
+  font-size: 0.85rem;
+  font-weight: 500;
+
+  &.high {
+    color: var(--color-danger-text);
+  }
+
+  &.medium {
+    color: var(--color-warning-text);
+  }
+
+  &.low {
+    color: var(--color-success-text);
+  }
+}

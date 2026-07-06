@@ -1,0 +1,78 @@
+<div class="global-search">
+  <label class="sr-only" for="global-search-input">
+    Search products, knowledge articles and support tickets
+  </label>
+
+  <div class="input-wrapper">
+    <svg
+      class="search-icon"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
+    </svg>
+    <input
+      id="global-search-input"
+      class="input"
+      type="search"
+      autocomplete="off"
+      placeholder="Search products, articles, tickets... e.g. acc"
+      [value]="query()"
+      (input)="onInput($event)"
+      [attr.aria-controls]="status() !== 'idle' ? 'global-search-results' : null"
+    />
+  </div>
+
+  <p class="sr-only" aria-live="polite" aria-atomic="true">
+    @switch (status()) {
+      @case ('loading') {
+        Searching…
+      }
+      @case ('empty') {
+        No results found for {{ query() }}
+      }
+      @case ('results') {
+        {{ resultCount() }} result{{ resultCount() === 1 ? '' : 's' }} found for {{ query() }}
+      }
+    }
+  </p>
+
+  @if (status() !== 'idle') {
+    <div class="results-panel" id="global-search-results">
+      @switch (status()) {
+        @case ('loading') {
+          <p class="status">Searching…</p>
+        }
+        @case ('empty') {
+          <p class="status">No results found for "{{ query() }}"</p>
+        }
+        @case ('results') {
+          @for (group of resultGroups(); track group.id) {
+            <section class="result-group" [attr.aria-labelledby]="group.id + '-heading'">
+              <h3 class="group-heading" [id]="group.id + '-heading'">{{ group.heading }}</h3>
+              <ul class="result-list">
+                @for (item of group.items; track item.id) {
+                  <li class="result-item">
+                    <button type="button" class="result-button" (click)="onSelectResult()">
+                      <span class="badge" [class]="group.badgeClass">{{ group.badgeLabel }}</span>
+                      <div class="result-body">
+                        <p class="result-title">{{ item.title }}</p>
+                        <p class="result-desc">{{ item.description }}</p>
+                      </div>
+                    </button>
+                  </li>
+                }
+              </ul>
+            </section>
+          }
+        }
+      }
+    </div>
+  }
+</div>

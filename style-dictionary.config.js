@@ -1,0 +1,16 @@
+const StyleDictionary = import("style-dictionary");
+module.exports = {
+  source: ["tokens.json"],
+  platforms: {
+    scss: {
+      transformGroup: "scss",
+      buildPath: "src/",
+      files: [
+        {
+          destination: "_variables.scss",
+          format: "scss/variables",
+        },
+      ],
+    },
+  },
+};

@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="header">
+    <h2 class="title" id="recent-orders-heading">Recent Orders</h2>
+    <a class="link" href="#">View all orders</a>
+  </div>
+
+  <table class="dash-table" aria-labelledby="recent-orders-heading">
+    <caption class="sr-only">Recent orders and their shipment status</caption>
+    <thead>
+      <tr>
+        <th scope="col">Order #</th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Total</th>
+        <th scope="col">Shipment Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (order of orders(); track order.id) {
+        <tr>
+          <th scope="row"><a href="#">{{ order.id }}</a></th>
+          <td>
+            <time [attr.datetime]="order.orderDate">{{ order.orderDate | date: 'MMMM d, y' }}</time>
+          </td>
+          <td>{{ order.total }}</td>
+          <td>
+            <span class="badge" [class]="badgeClass(order.shipmentStatus)">{{
+              order.shipmentStatus
+            }}</span>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <a class="footer-link" href="#">View all orders</a>
+</div>

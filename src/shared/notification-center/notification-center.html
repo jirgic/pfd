@@ -1,0 +1,102 @@
+<div class="notification-center">
+  <button
+    class="bell"
+    type="button"
+    aria-haspopup="true"
+    [attr.aria-expanded]="open()"
+    [attr.aria-controls]="open() ? 'notification-center-panel' : null"
+    [attr.aria-label]="'Notifications, ' + unreadCount() + ' unread'"
+    (click)="toggle()"
+  >
+    <svg
+      class="bell-icon"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+    </svg>
+    @if (unreadCount() > 0) {
+      <span class="bell-count" aria-hidden="true">{{ unreadCount() }}</span>
+    }
+  </button>
+
+  <p class="sr-only" aria-live="polite" aria-atomic="true">
+    {{ unreadCount() }} unread notification{{ unreadCount() === 1 ? '' : 's' }}
+  </p>
+
+  @if (open()) {
+    <div class="panel" id="notification-center-panel" (keydown.escape)="close()">
+      <div class="panel-header">
+        <h2 class="title" id="notification-center-heading">Notifications</h2>
+        @if (unreadCount() > 0) {
+          <button class="link" type="button" (click)="onMarkAllAsRead()">Mark all as read</button>
+        }
+      </div>
+
+      <div class="filter-toggle" role="group" aria-label="Filter notifications">
+        <button
+          type="button"
+          class="filter-button"
+          [class.active]="filter() === 'all'"
+          [attr.aria-pressed]="filter() === 'all'"
+          (click)="setFilter('all')"
+        >
+          All Notifications
+        </button>
+        <button
+          type="button"
+          class="filter-button"
+          [class.active]="filter() === 'unread'"
+          [attr.aria-pressed]="filter() === 'unread'"
+          (click)="setFilter('unread')"
+        >
+          Unread Only
+        </button>
+      </div>
+
+      @if (visibleNotifications().length === 0) {
+        <p class="status">
+          @if (filter() === 'unread') {
+            No unread notifications.
+          } @else {
+            No notifications.
+          }
+        </p>
+      } @else {
+        <ul class="notification-list" aria-labelledby="notification-center-heading">
+          @for (notification of visibleNotifications(); track notification.id) {
+            <li class="notification-item">
+              <button
+                type="button"
+                class="notification-button"
+                [disabled]="notification.read"
+                [attr.aria-label]="notification.read ? null : 'Mark as read: ' + notification.title"
+                (click)="onMarkAsRead(notification.id)"
+              >
+                <span class="dot" [class.read]="notification.read" aria-hidden="true"></span>
+                <div class="body">
+                  <div class="body-top">
+                    <p class="notification-title">
+                      @if (!notification.read) {
+                        <span class="sr-only">Unread: </span>
+                      }
+                      {{ notification.title }}
+                    </p>
+                    <span class="notification-time">{{ notification.time }}</span>
+                  </div>
+                  <p class="notification-meta">{{ notification.meta }}</p>
+                </div>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+</div>
